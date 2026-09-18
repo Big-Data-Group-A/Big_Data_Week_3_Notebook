@@ -34,11 +34,10 @@ Results:
 (b) [One honest sentence — e.g. "I was surprised that
     sum() and len() are just loops someone already wrote."]
 
-5. FILES
-- Week3_[YourName].ipynb
-- screenshots/
-- README.txt
-- week3_report.txt (bonus)
+
+
+
+
 
 
 
