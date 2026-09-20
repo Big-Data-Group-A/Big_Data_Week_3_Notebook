@@ -4,6 +4,8 @@
 
 **Course:** Intro to Big Data
 
+**Group:** A
+
 **Lab:** Week 3 — Python Data Processing
 
 **Notebook:** `Week3_Irembere.ipynb`
