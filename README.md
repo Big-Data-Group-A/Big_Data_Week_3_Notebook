@@ -1,82 +1,60 @@
-# Big Data — Week 3 Lab: Control Flow & Functions
+# Week 3 Lab Report — Control Flow & Functions
 
-**Course:** Introduction to Big Data Analytics (AUCA)
-**Instructor:** Prince Ishimwe — Prince.ishimwe@auca.ac.rw
-**Total marks:** 35 (+3 bonus) · **Due:** end of Week 3
+## 1. Introduction
 
-This repository holds the Week 3 lab assignment and dataset. Every student works on their **own branch** in this repo — do not commit directly to `main`.
+This lab focuses on Python control flow, loops, functions, and file handling. The main objective is to process student records, calculate grades and statistics, and build a reliable data-processing pipeline that can handle invalid data.
 
-## What's in this repo
+## 2. Objectives
 
-| File | Purpose |
-|---|---|
-| [`Lab 2.pdf`](./Lab%202.pdf) | The full lab handout: all exercises, instructions, and the marking scheme (Parts 1–6). |
-| [`week3_students.csv`](./week3_students.csv) | The dataset used in every exercise (40 students, 3 with intentionally broken scores). |
-| [`week3_students.xlsx`](./week3_students.xlsx) | Same dataset in spreadsheet form, for reference/inspection. |
+* Use conditional statements to determine student grades and validation status.
+* Apply `for` and `while` loops to process data and perform calculations.
+* Create reusable functions for grading and calculating pass rates.
+* Read and process student records from a CSV file.
+* Handle invalid scores using `try/except` to prevent program errors.
+* Calculate student statistics and analyze results by district.
 
-Read `Lab 2.pdf` first — it has the exercises, the exact columns/indices you'll use with `split(",")`, and the submission checklist.
+## 3. Methodology
 
-## How to work on this assignment
+The lab was organized into six parts:
 
-### 1. Clone the repo
+1. **Making Decisions:** Used `if/elif/else` statements to assign letter grades and determine whether students meet the course validation requirements based on scores and attendance.
 
-```bash
-git clone https://github.com/Big-Data-Group-A/Big_Data_Week_3_Notebook.git
-cd Big_Data_Week_3_Notebook
-```
+2. **Loops & Accumulators:** Used loops to filter high scores, calculate totals and averages, count passed and failed students, and determine the number of months needed to save for a laptop.
 
-### 2. Create your own branch
+3. **Functions:** Created reusable functions to return letter grades and calculate the percentage of students who passed.
 
-Never work directly on `main`. Branch off it using your student ID and name:
+4. **Reading the File:** Opened the `week3_students.csv` file, read its contents, and extracted student names for further processing.
 
-```bash
-git checkout main
-git pull
-git checkout -b week3/AUCA0XX-yourlastname
-```
+5. **The Resilient Pipeline:** Processed student records, handled invalid scores with exception handling, calculated statistics, identified the top student, and calculated average scores for each district.
 
-Example: `week3/AUCA001-uwase`
+6. **Reflection:** Considered the reliability of datasets containing invalid records and reflected on lessons learned during the session.
 
-### 3. Do the lab
+## 4. Results
 
-- Create your notebook as **`Week3_YourName.ipynb`** (Colab or Jupyter) inside your branch.
-- Keep `week3_students.csv` in the same folder as your notebook (Colab: use the folder icon → upload).
-- Work through Parts 1–6 in `Lab 2.pdf`:
-  - Part 1 — Making Decisions (if/elif/else)
-  - Part 2 — Loops & the Accumulator pattern
-  - Part 3 — Functions (`get_grade`, `pass_rate`)
-  - Part 4 — Reading the file with `open()`/`readlines()`
-  - Part 5 — The Resilient Pipeline (finding the 3 broken records with `try`/`except`)
-  - Part 6 — Reflection questions (required)
-  - Bonus (+3) — write and re-read `week3_report.txt`
-- Write your ½–1 page report identifying the 3 broken student records and how your code handled them.
-- Take the screenshots requested in the handout.
+The dataset contains 40 student records. According to the lab instructions, 3 records have invalid scores, representing 7.5% of the dataset.
 
-### 4. Commit your work to your branch
+The pipeline is designed to identify these records, process valid scores, calculate the average, determine pass and fail counts, identify the highest-scoring student, and compare district averages.
 
-```bash
-git add Week3_YourName.ipynb <your-report-file> <your-screenshots>
-git commit -m "Week 3 lab submission - Your Name"
-git push -u origin week3/AUCA0XX-yourlastname
-```
+**Results to complete after running the notebook:**
 
-### 5. Submit by opening a Pull Request
+* Number of valid records: 37
+* Number of invalid records: 3 
+* Average valid score: 75.27
+* Top student and score:  Bonaventure Nkurunziza (95)
+* District with the highest average: Muhanga
 
-Open a Pull Request from your branch into `main` (title it with your name and student ID). This is how the instructor/TA will review and grade your submission — **do not merge your own PR**.
+## 5. Challenges and Lessons Learned
 
-## Ground rules
+One important challenge was handling invalid score values without stopping the entire program. Using `try/except` helps the pipeline continue processing valid records while identifying errors.
 
-- One branch per student — don't edit another student's branch or files.
-- Don't push directly to `main`.
-- Don't modify `week3_students.csv`/`.xlsx` — everyone uses the same dataset.
-- Everything needed for this lab was covered in the Week 3 session — check the slides before searching online.
+The lab also demonstrated the importance of initializing and updating accumulator variables correctly, using functions to avoid repeating code, and checking data quality before drawing conclusions.
 
-## Submission checklist (from the handout)
+## 6. Reflection
 
-- [ ] Notebook renamed `Week3_YourName`
-- [ ] All exercises run without errors
-- [ ] 3 broken records identified
-- [ ] Reflection (Part 6) answered
-- [ ] Screenshots included
-- [ ] Short report included
-- [ ] Pull request opened before the end of Week 3
+If more than 10% of a dataset's records were invalid, I would investigate its reliability rather than automatically skipping the errors. I would check the original data source, correct invalid values where possible, and document any records that cannot be recovered.
+
+One thing that surprised me was how exception handling allows a program to continue running even when it encounters invalid data. This showed me why error handling is important when working with real-world datasets.
+
+## 7. Conclusion
+
+This lab provided practical experience with Python control flow, loops, functions, and CSV file processing. It demonstrated how these concepts can be combined to analyze student records and handle invalid data. The exercises also highlighted the importance of data validation, error handling, and reliable calculations in data analytics.
