@@ -1,0 +1,6 @@
+Week 3 Student Report
+Students in file: 40
+Valid scores: 37
+Bad scores: 3
+Average score: 19.8
+Top student: Bonaventure Nkurunziza (95)
