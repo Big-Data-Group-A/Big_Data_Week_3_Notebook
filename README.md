@@ -1,82 +1,362 @@
-# Big Data — Week 3 Lab: Control Flow & Functions
+# Week 3 — Python Data Processing Lab
 
-**Course:** Introduction to Big Data Analytics (AUCA)
-**Instructor:** Prince Ishimwe — Prince.ishimwe@auca.ac.rw
-**Total marks:** 35 (+3 bonus) · **Due:** end of Week 3
+**Student:** Irembere Olivier 28392
+**Course:** Intro to Big Data
+**Lab:** Week 3 — Python Data Processing
+**Notebook:** `Week3_Irembere.ipynb`
+**Dataset:** `week3_students.csv`
 
-This repository holds the Week 3 lab assignment and dataset. Every student works on their **own branch** in this repo — do not commit directly to `main`.
+---
 
-## What's in this repo
+## Overview
 
-| File | Purpose |
-|---|---|
-| [`Lab 2.pdf`](./Lab%202.pdf) | The full lab handout: all exercises, instructions, and the marking scheme (Parts 1–6). |
-| [`week3_students.csv`](./week3_students.csv) | The dataset used in every exercise (40 students, 3 with intentionally broken scores). |
-| [`week3_students.xlsx`](./week3_students.xlsx) | Same dataset in spreadsheet form, for reference/inspection. |
+This lab focused on Python programming and basic data processing using a student dataset containing **40 student records**.
 
-Read `Lab 2.pdf` first — it has the exercises, the exact columns/indices you'll use with `split(",")`, and the submission checklist.
+The main topics covered were:
 
-## How to work on this assignment
+* Conditional statements
+* Combined conditions
+* `for` loops
+* `while` loops
+* Accumulator patterns
+* Functions
+* Reading CSV files
+* Exception handling
+* Data validation
+* Dictionary accumulators
+* Writing and reading text files
 
-### 1. Clone the repo
+The dataset contains **3 records with broken/non-numeric scores**, which were handled using `try` and `except`.
 
-```bash
-git clone https://github.com/Big-Data-Group-A/Big_Data_Week_3_Notebook.git
-cd Big_Data_Week_3_Notebook
+---
+
+## Part 1 — Making Decisions
+
+### Exercise 1.1 — Grading Ladder
+
+An `if/elif/else` ladder was used to assign letter grades:
+
+| Score        | Grade |
+| ------------ | ----- |
+| 85 and above | A     |
+| 70–84        | B     |
+| 60–69        | C     |
+| 50–59        | D     |
+| Below 50     | F     |
+
+Test results:
+
+```text
+91 → A
+76 → B
+64 → C
+52 → D
+43 → F
 ```
 
-### 2. Create your own branch
+### Exercise 1.2 — Combined Conditions
 
-Never work directly on `main`. Branch off it using your student ID and name:
+The AUCA validation rule was implemented using combined conditions:
 
-```bash
-git checkout main
-git pull
-git checkout -b week3/AUCA0XX-yourlastname
+* Score ≥ 50 and attendance ≥ 75 → `Validated`
+* Score ≥ 50 but attendance < 75 → `Blocked: low attendance`
+* Score < 50 → `Failed`
+
+Test results:
+
+```text
+(76, 92) → Validated
+(76, 68) → Blocked: low attendance
+(43, 95) → Failed
 ```
 
-Example: `week3/AUCA001-uwase`
+### Exercise 1.3 — Reflection
 
-### 3. Do the lab
+If `elif score >= 50` came before `elif score >= 70`, scores of 70 or higher would satisfy the 50-or-higher condition first and would never reach the 70-or-higher condition.
 
-- Create your notebook as **`Week3_YourName.ipynb`** (Colab or Jupyter) inside your branch.
-- Keep `week3_students.csv` in the same folder as your notebook (Colab: use the folder icon → upload).
-- Work through Parts 1–6 in `Lab 2.pdf`:
-  - Part 1 — Making Decisions (if/elif/else)
-  - Part 2 — Loops & the Accumulator pattern
-  - Part 3 — Functions (`get_grade`, `pass_rate`)
-  - Part 4 — Reading the file with `open()`/`readlines()`
-  - Part 5 — The Resilient Pipeline (finding the 3 broken records with `try`/`except`)
-  - Part 6 — Reflection questions (required)
-  - Bonus (+3) — write and re-read `week3_report.txt`
-- Write your ½–1 page report identifying the 3 broken student records and how your code handled them.
-- Take the screenshots requested in the handout.
+---
 
-### 4. Commit your work to your branch
+## Part 2 — Loops & the Accumulator
 
-```bash
-git add Week3_YourName.ipynb <your-report-file> <your-screenshots>
-git commit -m "Week 3 lab submission - Your Name"
-git push -u origin week3/AUCA0XX-yourlastname
+The following list was used:
+
+```python
+scores = [72, 85, 91, 64, 78, 47, 88, 55, 93, 61]
 ```
 
-### 5. Submit by opening a Pull Request
+### Exercise 2.1 — Loop + Filter
 
-Open a Pull Request from your branch into `main` (title it with your name and student ID). This is how the instructor/TA will review and grade your submission — **do not merge your own PR**.
+A `for` loop was used to print only scores greater than or equal to 80.
 
-## Ground rules
+```text
+Top score: 85
+Top score: 91
+Top score: 88
+Top score: 93
+```
 
-- One branch per student — don't edit another student's branch or files.
-- Don't push directly to `main`.
-- Don't modify `week3_students.csv`/`.xlsx` — everyone uses the same dataset.
-- Everything needed for this lab was covered in the Week 3 session — check the slides before searching online.
+### Exercise 2.2 — Accumulator
 
-## Submission checklist (from the handout)
+Using one loop without `sum()`, `len()`, or `max()`, the following results were calculated:
 
-- [ ] Notebook renamed `Week3_YourName`
-- [ ] All exercises run without errors
-- [ ] 3 broken records identified
-- [ ] Reflection (Part 6) answered
-- [ ] Screenshots included
-- [ ] Short report included
-- [ ] Pull request opened before the end of Week 3
+| Result  | Value |
+| ------- | ----: |
+| Total   |   734 |
+| Count   |    10 |
+| Average |  73.4 |
+| Passed  |     9 |
+| Failed  |     1 |
+
+The accumulator pattern used was:
+
+**Initialize → Loop → Update → Report**
+
+### Exercise 2.3 — While Loop
+
+A `while` loop was used to calculate how many months were required to save enough money for a laptop costing 250,000 RWF.
+
+* Monthly saving: **15,000 RWF**
+* Laptop cost: **250,000 RWF**
+* Months required: **17**
+* Total saved: **255,000 RWF**
+
+---
+
+## Part 3 — Functions
+
+### Exercise 3.1 — `get_grade()`
+
+The grading ladder was converted into a reusable `get_grade(score)` function.
+
+Test results:
+
+```text
+91 → A
+76 → B
+43 → F
+```
+
+The function also includes a one-line docstring.
+
+### Exercise 3.2 — `pass_rate()`
+
+A `pass_rate(score_list)` function was created using an accumulator.
+
+For the Part 2 scores:
+
+```text
+Passed: 9
+Total: 10
+Pass rate: 90.0%
+```
+
+---
+
+## Part 4 — Reading the CSV File
+
+The `week3_students.csv` file was opened using Python's `open()` function and read using `readlines()`.
+
+The dataset contains:
+
+* **1 header line**
+* **40 student records**
+* **41 lines in total**
+
+The header is counted as a line, which is why the file contains 41 lines instead of 40.
+
+The Name column was extracted by:
+
+1. Skipping the header using `lines[1:]`
+2. Removing whitespace using `.strip()`
+3. Splitting each line using `.split(",")`
+4. Selecting the name using index `1`
+
+The resulting list contains **40 student names**.
+
+---
+
+## Part 5 — The Resilient Pipeline
+
+### Exercise 5.1 — Survive the Mess
+
+The dataset contains **3 broken score records**.
+
+The program used `try` and `except ValueError` to safely convert scores into integers.
+
+Valid scores were added to the total and counted, while invalid records were recorded using their student IDs.
+
+### Results
+
+```text
+Valid records: 37
+Bad records: 3
+Bad student IDs: [ADD YOUR 3 IDS HERE]
+Average score: [ADD YOUR AVERAGE HERE]
+```
+
+The program continued processing the dataset instead of crashing when it encountered invalid scores.
+
+---
+
+### Exercise 5.2 — Grades & Top Student
+
+Among the valid records, the program calculated:
+
+* Passed students
+* Failed students
+* Highest score
+* Student with the highest score
+* Letter grade of the top student
+
+The highest score was tracked using:
+
+```python
+best_score = -1
+best_name = ""
+```
+
+### Results
+
+```text
+Passed: [ADD RESULT]
+Failed: [ADD RESULT]
+Best score: [ADD RESULT]
+Best student: [ADD RESULT]
+Top student's grade: [ADD RESULT]
+```
+
+---
+
+### Exercise 5.3 — Report by District
+
+Two dictionary accumulators were used to calculate the total scores and number of students for each district:
+
+```python
+sums[d] = sums.get(d, 0) + s
+counts[d] = counts.get(d, 0) + 1
+```
+
+The dataset contains **8 districts**, with **5 students per district**.
+
+### District Averages
+
+```text
+[ADD YOUR DISTRICT AVERAGES HERE]
+```
+
+**District with highest average:** `[ADD DISTRICT]`
+
+**Highest average:** `[ADD AVERAGE]`
+
+---
+
+## Bonus — Output File
+
+A report named `week3_report.txt` was created using Python file handling.
+
+The report contains:
+
+* Student count
+* Valid records
+* Bad records
+* Average score
+* Top student
+* Top score
+
+The file was then read back and printed to verify its contents.
+
+---
+
+# Part 6 — Reflection
+
+### 1. Dataset Trust
+
+I would stop trusting the dataset if more than 10% of the records had broken or invalid scores. Instead of simply skipping those records, I would investigate the original data source, identify why the values are incorrect, and correct or replace the invalid records before continuing the analysis. If the errors could not be reliably corrected, I would report the data-quality problem and avoid making conclusions from the dataset.
+
+### 2. What Surprised Me
+
+One thing that surprised me was that a single invalid score could normally cause the program to stop with a `ValueError`, but using `try` and `except` allowed the program to handle the broken record and continue processing the remaining students.
+
+---
+
+# Screenshots
+
+## Part 1 — Making Decisions
+
+<!-- Add your screenshot below -->
+
+![Part 1 Screenshot](screenshots/part1.png)
+
+---
+
+## Part 2 — Loops & Accumulator
+
+<!-- Add your screenshot below -->
+
+![Part 2 Screenshot](screenshots/part2.png)
+
+---
+
+## Part 3 — Functions
+
+<!-- Add your screenshot below -->
+
+![Part 3 Screenshot](screenshots/part3.png)
+
+---
+
+## Part 4 — Reading the CSV
+
+<!-- Add your screenshot below -->
+
+![Part 4 Screenshot](screenshots/part4.png)
+
+---
+
+## Part 5.1 — Survive the Mess
+
+<!-- Add your screenshot below -->
+
+![Part 5.1 Screenshot](screenshots/part5-1.png)
+
+---
+
+## Part 5.2 — Grades & Top Student
+
+<!-- Add your screenshot below -->
+
+![Part 5.2 Screenshot](screenshots/part5-2.png)
+
+---
+
+## Part 5.3 — Report by District
+
+<!-- Add your screenshot below -->
+
+![Part 5.3 Screenshot](screenshots/part5-3.png)
+
+---
+
+## Bonus — Output File
+
+<!-- Add your screenshot below -->
+
+![Bonus Screenshot](screenshots/bonus.png)
+
+---
+## Part 6 — Reflection
+
+### Reflection 1 — Data Quality
+
+The pipeline skipped 3 broken records out of 40, which is 7.5%. I would stop trusting the dataset if more than 10% of the records had broken or invalid scores. Instead of simply skipping those records, I would investigate the original data source, identify why the values are incorrect, and correct or replace the invalid records before continuing the analysis. If the errors could not be reliably corrected, I would report the data-quality problem and avoid making conclusions from the dataset.
+
+### Reflection 2 — What Surprised Me
+
+One thing that surprised me was that a single invalid score could normally cause the program to stop with a `ValueError`. Using `try` and `except` allowed the program to handle the broken record and continue processing the remaining students without stopping the entire pipeline.
+---
+
+# Conclusion
+
+This lab provided practical experience with Python control structures, loops, functions, file handling, exception handling, and basic data processing.
+
+The most important concept was building a resilient pipeline that can detect invalid data, handle errors without crashing, and continue processing valid records.
