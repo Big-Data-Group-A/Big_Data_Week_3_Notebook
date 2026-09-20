@@ -283,63 +283,63 @@ One thing that surprised me was that a single invalid score could normally cause
 
 ## Part 1 — Making Decisions
 
-![Part 1 Screenshot](screenshots/part1a.png)
+![Part 1 Screenshot](Screenshots/part1a.png)
 
-![Part 1 Screenshot](screenshots/part1b.png)
+![Part 1 Screenshot](Screenshots/part1b.png)
 
 ---
 
 ## Part 2 — Loops & Accumulator
 
-![Part 2 Screenshot](screenshots/part2a.png)
+![Part 2 Screenshot](Screenshots/part2a.png)
 
-![Part 2 Screenshot](screenshots/part2b.png)
+![Part 2 Screenshot](Screenshots/part2b.png)
 
-![Part 2 Screenshot](screenshots/part2c.png)
+![Part 2 Screenshot](Screenshots/part2c.png)
 
 ---
 
 ## Part 3 — Functions
 
-![Part 3 Screenshot](screenshots/part3a.png)
+![Part 3 Screenshot](Screenshots/part3a.png)
 
-![Part 3 Screenshot](screenshots/part3b.png)
+![Part 3 Screenshot](Screenshots/part3b.png)
 
 ---
 
 ## Part 4 — Reading the CSV
 
 
-![Part 4 Screenshot](screenshots/part4a.png)
+![Part 4 Screenshot](Screenshots/part4a.png)
 
-![Part 4 Screenshot](screenshots/part4b.png)
+![Part 4 Screenshot](Screenshots/part4b.png)
 
 ---
 
 ## Part 5.1 — Survive the Mess
 
 
-![Part 5.1 Screenshot](screenshots/part5a.png)
+![Part 5.1 Screenshot](Screenshots/part5a.png)
 
 ---
 
 ## Part 5.2 — Grades & Top Student
 
-![Part 5.2 Screenshot](screenshots/part5b.png)
+![Part 5.2 Screenshot](Screenshots/part5b.png)
 
 ---
 
 ## Part 5.3 — Report by District
 
 
-![Part 5.3 Screenshot](screenshots/part5c.png)
+![Part 5.3 Screenshot](Screenshots/part5c.png)
 
 ---
 
 ## Bonus — Output File
 
 
-![Bonus Screenshot](screenshots/bonusquestion.png)
+![Bonus Screenshot](Screenshots/bonusquestion.png)
 
 ---
 ## Part 6 — Reflection
