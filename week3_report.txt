@@ -1,0 +1,6 @@
+--- Abdul Salam's Report ---
+Student count: 40
+Valid: 37, Bad: 3
+Average score: 75.3
+Top student: Bonaventure Nkurunziza (95)
+--- End of Report ---
