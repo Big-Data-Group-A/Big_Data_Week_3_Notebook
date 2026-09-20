@@ -353,6 +353,8 @@ The pipeline skipped 3 broken records out of 40, which is 7.5%. I would stop tru
 ### Reflection 2 — What Surprised Me
 
 One thing that surprised me was that a single invalid score could normally cause the program to stop with a `ValueError`. Using `try` and `except` allowed the program to handle the broken record and continue processing the remaining students without stopping the entire pipeline.
+
+
 ---
 
 # Conclusion
