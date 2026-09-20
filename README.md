@@ -1,9 +1,13 @@
 # Week 3 — Python Data Processing Lab
 
 **Student:** Irembere Olivier 28392
+
 **Course:** Intro to Big Data
+
 **Lab:** Week 3 — Python Data Processing
+
 **Notebook:** `Week3_Irembere.ipynb`
+
 **Dataset:** `week3_students.csv`
 
 ---
