@@ -1,120 +1,96 @@
-# Week 3 Lab Report: Control Flow & Functions
+# Week 3 Lab Report - Control Flow & Functions
+
 **Course:** Introduction to Big Data Analytics  
 **Student Name:** Manzifred  
 **Student ID:** 26634  
 **Date:** September 21, 2026  
-**Repository Branch:** `week3/26634-manzi`  
+**Branch:** week3/26634-manzi  
 
 ---
 
-## 1. Executive Summary
+## Summary
 
-This report documents the implementation and results for **Week 3 Lab: Control Flow & Functions**. Using raw student records from `week3_students.csv`, a resilient Python data pipeline was constructed to clean, filter, and aggregate student performance metrics without halting on corrupted data.
-
-Out of **40 total student records**, the pipeline successfully validated **37 clean records** and safely isolated **3 broken records (7.5% corruption rate)**. All exercises from Parts 1 through 5, including the Bonus output file generation and Part 6 Reflection questions, were implemented and verified with zero runtime errors.
+This report covers my work for Week 3 lab on control flow and functions. I worked through the dataset week3_students.csv which has 40 student records. The main challenge was that 3 of those records had broken scores that would crash the program if not handled properly. I used try/except to deal with that and managed to get results from the 37 valid records.
 
 ---
 
-## 2. Identified Broken Records
+## The 3 Broken Records
 
-During the dataset iteration, parsing the `score` column (index 7) with `int()` revealed 3 corrupted entries that would otherwise crash standard scripts:
+When I looped through the file and tried to convert the score column to an integer using int(), it failed on 3 rows. Here is what was in those rows:
 
-| Student ID | Student Name | Program | District | Attendance % | Raw Score Value | Cause of Failure |
-| :--- | :--- | :--- | :--- | :---: | :---: | :--- |
-| **AUCA008** | Emmanuel Nsengiyumva | Accounting | Rubavu | 65% | `"N/A"` | Non-numeric placeholder string |
-| **AUCA020** | Samuel Rukundo | Accounting | Kicukiro | 94% | `""` | Missing value (empty string) |
-| **AUCA032** | Gilbert Uwituze | Accounting | Rubavu | 63% | `"absent"` | Textual status instead of numerical score |
+| Student ID | Name | Score Value | Why it failed |
+|---|---|---|---|
+| AUCA008 | Emmanuel Nsengiyumva | N/A | that is a string, not a number |
+| AUCA020 | Samuel Rukundo | (nothing) | the cell was empty |
+| AUCA032 | Gilbert Uwituze | absent | that is a string, not a number |
 
----
-
-## 3. How the Code Survived Dirty Data
-
-### Resilient Architecture (`try / except ValueError`)
-
-In Python, invoking `int()` on a non-numeric or empty string throws an immediate `ValueError`. Without defensive handling, this terminates execution on row AUCA008. To ensure fault tolerance, the pipeline wraps score casting inside a `try...except ValueError` block:
+Python throws a ValueError when you call int() on something that is not a number. The try/except block I wrote catches that error and instead of crashing, it just adds the student ID to a bad_ids list and moves on to the next row.
 
 ```python
-# Exercise 5.1 — Resilient Pipeline
-total   = 0
-valid   = 0
-bad     = 0
-bad_ids = []
-
 for line in lines[1:]:
     parts = line.strip().split(",")
     try:
-        score = int(parts[7])        # raises ValueError for broken values
+        score = int(parts[7])
         total = total + score
         valid = valid + 1
     except ValueError:
         bad = bad + 1
-        bad_ids.append(parts[0])     # log the broken student_id
-
-average_valid = total / valid
+        bad_ids.append(parts[0])
 ```
 
-### Key Principles Applied
-
-1. **Graceful Degradation:** Malformed records are intercepted and quarantined (`bad_ids`) rather than crashing the program.
-2. **Data Isolation:** Broken rows are excluded from numerical accumulators (`total` and `valid`), preserving accuracy for statistical metrics.
-3. **Auditability:** Problematic student IDs are logged so that administrative follow-up is possible.
+This way none of the good data gets lost and at the end I can see exactly which students had the problem.
 
 ---
 
-## 4. Key Findings & Analytics Results
+## Results
 
-- **Total Records Processed:** 40
-- **Valid Records:** 37
-- **Corrupted Records:** 3 (7.5%)
-- **Valid Scores Average:** **75.3**
-- **Passed (≥ 50):** 35
-- **Failed (< 50):** 2
-- **Top Performing Student:** **Bonaventure Nkurunziza** (AUCA024, Score: **95**, Grade: **A**)
-- **Top Performing District:** **Muhanga** (highest district average)
+- Total students: 40  
+- Valid records: 37  
+- Bad records: 3  
+- Average score (valid only): 75.3  
+- Passed (score >= 50): 35  
+- Failed (score < 50): 2  
+- Top student: Bonaventure Nkurunziza, score 95, grade A  
+- Best district: Muhanga (average 87.00)  
 
-### District Performance Breakdown
+### Scores by district
 
-| District | Avg Score |
-| :--- | :---: |
+| District | Average Score |
+|---|---|
 | Gasabo | 80.40 |
 | Huye | 68.40 |
 | Kicukiro | 64.00 |
-| Muhanga | **87.00** 🏆 |
+| Muhanga | 87.00 |
 | Musanze | 65.20 |
 | Nyagatare | 82.80 |
 | Nyarugenge | 74.80 |
 | Rubavu | 78.67 |
 
----
-
-## 5. Reflection (Part 6)
-
-### Question 1 — Data Trust Threshold & Remediation
-
-> *At what percentage would you stop trusting the dataset — and what would you do instead of skipping?*
-
-At 7.5%, skipping is acceptable: 37 valid records are sufficient for meaningful analysis. However, if the bad-record rate crossed **15%**, I would stop trusting the dataset for direct automated processing, because dropping 15%+ of samples introduces substantial **selection bias** and distorts district/program distributions.
-
-Instead of silently skipping, I would:
-1. **Investigate the root cause** — query the registrar or exam system logs to diagnose why values are missing.
-2. **Impute cautiously** — replace missing scores with the district or program median, and add an `imputed_flag` column.
-3. **Report transparently** — always state the missing-data rate in any output so readers can judge reliability themselves.
-
-### Question 2 — Session Takeaway
-
-> *Describe one thing from today's session that surprised or confused you.*
-
-The concept that surprised me most was **variable scope**. I assumed that a variable created inside a function would still be accessible after the function ran. Discovering that it disappears — and that `return` is the only way to get a value out — completely changed how I think about functions. Without scope, every variable name in every function would risk colliding with variables in the rest of the program. `return` is the deliberate, controlled output port.
+Muhanga came out on top with 87.00, well above the class average of 75.3.
 
 ---
 
-## 6. Submission Checklist
+## Reflection
 
-- [x] Notebook renamed: `Week3_Manzifred.ipynb`
-- [x] All exercises run without errors (Parts 1–5 + Bonus)
-- [x] 3 broken records identified: AUCA008 (`"N/A"`), AUCA020 (`""`), AUCA032 (`"absent"`)
-- [x] Reflection (Part 6) answered
-- [x] Short report: `Week3_Lab_Report_Manzifred.md`
-- [x] Branch created: `week3/26634-manzi`
-- [ ] Screenshots *(take in Google Colab after running all cells)*
-- [ ] Submitted before end of Week 3
+**Question 1:** At what percentage would you stop trusting the dataset, and what would you do instead of skipping?
+
+At 7.5% I think it is still okay to skip the bad rows because there are enough valid records left to work with. But if the number of broken records went up to something like 15% or higher, I would be more careful. At that point there is a real chance the missing data is not random. Maybe all the students with no score were absent the same day, or they all come from the same district. If I skip them without checking, the averages and other results will look better than they really are.
+
+What I would do instead is first try to find out where the data came from and why those values are missing. If I can get the actual scores from the registrar I would fill them in. If not, I would replace the missing values with the average for that district or program, but mark those rows clearly so it is obvious they were estimated and not real values. The key thing is to never just quietly remove data without saying so anywhere in the output.
+
+**Question 2:** What surprised or confused you from today's session?
+
+Scope confused me more than I expected. I had written a variable inside a function and then tried to print it from outside the function and got a NameError. My first thought was that something was broken, but actually it is just how Python works. Variables that are created inside a function only exist while that function is running. Once it is done they are gone. The only way to get a value out is to use return. Once I understood that it made sense, but it took me a moment because I kept expecting it to behave like code written outside any function.
+
+---
+
+## Submission checklist
+
+- [x] Notebook: Week3_Manzifred.ipynb  
+- [x] All exercises completed and running without errors  
+- [x] 3 broken records found: AUCA008, AUCA020, AUCA032  
+- [x] Reflection answered  
+- [x] Report written  
+- [x] Branch: week3/26634-manzi  
+- [ ] Screenshots (to be taken from Google Colab)  
+- [ ] Submitted before end of Week 3  
