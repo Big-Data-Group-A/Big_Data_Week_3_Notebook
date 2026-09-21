@@ -1,0 +1,6 @@
+Week 3 Lab Report
+Student count: 40
+Valid scores: 37
+Bad scores: 3
+Average valid score: 75.3
+Top student: Bonaventure Nkurunziza (95)
