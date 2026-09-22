@@ -1,0 +1,43 @@
+AUCA — Introduction to Big Data Analytics
+Week 3 Lab Report — Control Flow & Functions
+
+Student: ______________________________
+Student ID: ____________________________
+Program: _______________________________
+
+1. Dataset summary
+The dataset contains 40 student records. The pipeline successfully processed 37 valid numeric scores and found 3 broken scores.
+
+2. Broken records
+The three broken records were:
+- AUCA008 — Emmanuel Nsengiyumva — score = N/A
+- AUCA020 — Samuel Rukundo — score = 
+- AUCA032 — Gilbert Uwituze — score = absent
+
+3. How the code survived the broken records
+The pipeline used try/except ValueError when converting the score to an integer. Valid scores were added to the total and valid count. When a score could not be converted, the code increased the bad counter and stored the student ID in bad_ids. This allowed the loop to continue instead of crashing.
+
+4. Main results
+Valid scores: 37
+Bad scores: 3
+Average valid score: 75.3
+Passed (>= 50): 35
+Failed (< 50): 2
+Top student: Bonaventure Nkurunziza
+Top score: 95
+Top grade: A
+
+5. District averages
+- Gasabo: 80.4
+- Huye: 68.4
+- Kicukiro: 64.0
+- Muhanga: 87.0
+- Musanze: 65.2
+- Nyagatare: 82.8
+- Nyarugenge: 74.8
+- Rubavu: 78.7
+
+6. Reflection
+At 7.5% broken records, the current pipeline can still report how many records were skipped. I would stop trusting the dataset if the broken-record percentage became high enough to materially affect the analysis, for example around 20%. At that point I would investigate, correct or re-collect the affected data, and document the problem rather than silently skipping it.
+
+One thing that surprised me was how try/except inside a loop allows good records to continue through the pipeline even when one record contains a non-numeric score.
