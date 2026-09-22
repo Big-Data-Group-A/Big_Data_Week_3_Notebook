@@ -1,82 +1,65 @@
-# Big Data — Week 3 Lab: Control Flow & Functions
+# Week 3 Lab — Control Flow & Functions
 
-**Course:** Introduction to Big Data Analytics (AUCA)
-**Instructor:** Prince Ishimwe — Prince.ishimwe@auca.ac.rw
-**Total marks:** 35 (+3 bonus) · **Due:** end of Week 3
+This lab took me through control flow, loops, functions, and file handling in Python, working with a 40-row student dataset (`week3_students.csv`). The twist: 3 of the score values in the dataset are broken (not numbers), so a chunk of the work was making sure my code could catch that and keep going instead of crashing.
 
-This repository holds the Week 3 lab assignment and dataset. Every student works on their **own branch** in this repo — do not commit directly to `main`.
+## What I submitted
 
-## What's in this repo
+- My notebook, renamed `Week3_YourName`, with everything running clean end to end
+- A short write-up (½–1 page) naming the 3 broken records and explaining how my code handled them
+- Screenshots of the working code and output
+- Answers to the reflection questions below
 
-| File | Purpose |
-|---|---|
-| [`Lab 2.pdf`](./Lab%202.pdf) | The full lab handout: all exercises, instructions, and the marking scheme (Parts 1–6). |
-| [`week3_students.csv`](./week3_students.csv) | The dataset used in every exercise (40 students, 3 with intentionally broken scores). |
-| [`week3_students.xlsx`](./week3_students.xlsx) | Same dataset in spreadsheet form, for reference/inspection. |
+## Walking through the parts
 
-Read `Lab 2.pdf` first — it has the exercises, the exact columns/indices you'll use with `split(",")`, and the submission checklist.
+**Part 1 — Making Decisions (5 marks)**
+Built a grading ladder with `if`/`elif`/`else` — A ≥ 85, B 70–84, C 60–69, D 50–59, F below 50 — and tested it on 91, 76, 64, 52, and 43. Then a combined-condition check: a course only counts as "Validated" if the score is at least 50 *and* attendance is at least 75%, otherwise it's either "Blocked: low attendance" or "Failed". I also had to explain in a sentence why the order of the `elif` checks matters — if you check `>= 50` before `>= 70`, everything above 50 gets swallowed by the wrong branch.
 
-## How to work on this assignment
+**Part 2 — Loops & the Accumulator (7 marks)**
+Filtered a list of scores to just the ones ≥ 80, then practiced the accumulator pattern by hand — no `sum()`, `len()`, or `max()` allowed — to get the total, count, average, and pass/fail counts. Finished with a `while` loop working out how many months it'd take to save 250,000 RWF at 15,000 RWF a month, being careful not to write an infinite loop.
 
-### 1. Clone the repo
+**Part 3 — Functions (6 marks)**
+Turned the Part 1 grading ladder into a proper function, `get_grade(score)`, with a docstring, and wrote `pass_rate(score_list)` to return the percentage of passing scores using the same accumulator idea — expected 90.0% on the Part 2 list.
 
-```bash
-git clone https://github.com/Big-Data-Group-A/Big_Data_Week_3_Notebook.git
-cd Big_Data_Week_3_Notebook
-```
+**Part 4 — Reading the File (5 marks)**
+Opened `week3_students.csv` with `with open(...) as f:` and `readlines()`, and printed the line count, the header, and the first student's row. There are 41 lines, not 40, because of the header row. Then looped through and pulled out just the `name` column into a list.
 
-### 2. Create your own branch
+**Part 5 — The Resilient Pipeline (12 marks)**
+This was the core of the lab. Looped through every row and used `try`/`except ValueError` to convert each score to an integer — on success it counts toward the total, on failure the student ID gets logged to `bad_ids`. Checkpoint: exactly 3 broken records should turn up. From there, among the valid rows, I tracked pass/fail counts and found the top-scoring student using two accumulators (`best_score = -1`, `best_name = ""`), then ran their score through `get_grade`. As a stretch, I broke scores down by district using two dictionary accumulators to find the district with the highest average.
 
-Never work directly on `main`. Branch off it using your student ID and name:
+**Bonus — Output File (+3)**
+Wrote a short report — student count, valid/bad counts, average, top student — to `week3_report.txt`, then read it back in and printed it to confirm it saved correctly.
 
-```bash
-git checkout main
-git pull
-git checkout -b week3/AUCA0XX-yourlastname
-```
+## My results
 
-Example: `week3/AUCA001-uwase`
+- **Broken record IDs found:** ___
+- **Valid records / average score:** ___
+- **Top student & grade:** ___
+- **District with the highest average score:** ___
+- **Months to save for the laptop (2.3):** ___
 
-### 3. Do the lab
+## Reflection
 
-- Create your notebook as **`Week3_YourName.ipynb`** (Colab or Jupyter) inside your branch.
-- Keep `week3_students.csv` in the same folder as your notebook (Colab: use the folder icon → upload).
-- Work through Parts 1–6 in `Lab 2.pdf`:
-  - Part 1 — Making Decisions (if/elif/else)
-  - Part 2 — Loops & the Accumulator pattern
-  - Part 3 — Functions (`get_grade`, `pass_rate`)
-  - Part 4 — Reading the file with `open()`/`readlines()`
-  - Part 5 — The Resilient Pipeline (finding the 3 broken records with `try`/`except`)
-  - Part 6 — Reflection questions (required)
-  - Bonus (+3) — write and re-read `week3_report.txt`
-- Write your ½–1 page report identifying the 3 broken student records and how your code handled them.
-- Take the screenshots requested in the handout.
+1. My pipeline skipped 3 out of 40 records (7.5%). At what point would I stop trusting a dataset like this, and what would I do instead of just skipping the bad rows?
+2. One thing from this session that surprised or confused me: ___
 
-### 4. Commit your work to your branch
+## Marking scheme
 
-```bash
-git add Week3_YourName.ipynb <your-report-file> <your-screenshots>
-git commit -m "Week 3 lab submission - Your Name"
-git push -u origin week3/AUCA0XX-yourlastname
-```
+| Part | Topic | Marks |
+|---|---|---|
+| 1 | Making Decisions | 5 |
+| 2 | Loops & the Accumulator | 7 |
+| 3 | Functions | 6 |
+| 4 | Reading the File | 5 |
+| 5 | The Resilient Pipeline | 12 |
+| **Total** | | **35** |
+| Bonus | Output file | +3 |
 
-### 5. Submit by opening a Pull Request
-
-Open a Pull Request from your branch into `main` (title it with your name and student ID). This is how the instructor/TA will review and grade your submission — **do not merge your own PR**.
-
-## Ground rules
-
-- One branch per student — don't edit another student's branch or files.
-- Don't push directly to `main`.
-- Don't modify `week3_students.csv`/`.xlsx` — everyone uses the same dataset.
-- Everything needed for this lab was covered in the Week 3 session — check the slides before searching online.
-
-## Submission checklist (from the handout)
+## Before I submit
 
 - [ ] Notebook renamed `Week3_YourName`
-- [ ] All exercises run without errors
+- [ ] Everything runs without errors
 - [ ] 3 broken records identified
-- [ ] Reflection (Part 6) answered
+- [ ] Reflection answered
 - [ ] Screenshots included
-- [ ] Short report included
-- [ ] Pull request opened before the end of Week 3
+- [ ] Short report written
+- [ ] Submitted before the end of Week 3
