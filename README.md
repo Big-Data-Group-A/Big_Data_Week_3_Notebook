@@ -31,6 +31,8 @@ The lab was organized into six parts:
 
 ## 4. Results
 
+
+
 The dataset contains 40 student records. According to the lab instructions, 3 records have invalid scores, representing 7.5% of the dataset.
 
 The pipeline is designed to identify these records, process valid scores, calculate the average, determine pass and fail counts, identify the highest-scoring student, and compare district averages.
