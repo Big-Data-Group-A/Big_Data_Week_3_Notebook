@@ -1,4 +1,4 @@
-# Exercise 1.1 — The grading ladder
+Exercise 1.1 — The grading ladder
 def print_grade(score):
     if score >= 85:
         grade = "A"
@@ -15,8 +15,8 @@ def print_grade(score):
 for score in [91, 76, 64, 52, 43]:
     print_grade(score)
 
-# ----------------------------------------------------------------------
-# Exercise 1.2 — Combined conditions
+
+ Exercise 1.2 — Combined conditions
 def validation_status(score, attendance):
     if score >= 50 and attendance >= 75:
         return "Validated"
@@ -29,18 +29,15 @@ tests = [(76, 92), (76, 68), (43, 95)]
 for score, attendance in tests:
     print(score, attendance, "->", validation_status(score, attendance))
 
-# ----------------------------------------------------------------------
 scores = [72, 85, 91, 64, 78, 47, 88, 55, 93, 61]
 
-# ----------------------------------------------------------------------
-# Exercise 2.1 — Loop + filter
+ Exercise 2.1 — Loop + filter
 for score in scores:
     if score >= 80:
         print(f"Top score: {score}")
 
-# ----------------------------------------------------------------------
-# Exercise 2.2 — Accumulator pattern
-# No sum(), len(), or max() is used here.
+ Exercise 2.2 — Accumulator pattern
+ No sum(), len(), or max() is used here.
 total = 0
 count = 0
 passed = 0
@@ -63,8 +60,8 @@ print("Average:", average)
 print("Passed:", passed)
 print("Failed:", failed)
 
-# ----------------------------------------------------------------------
-# Exercise 2.3 — while loop
+
+ Exercise 2.3 — while loop
 saved = 0
 months = 0
 target = 250000
@@ -77,8 +74,8 @@ while saved < target:
 print("Months needed:", months)
 print("Amount saved:", saved, "RWF")
 
-# ----------------------------------------------------------------------
-# Exercise 3.1 — get_grade
+
+ Exercise 3.1 — get_grade
 def get_grade(score):
     """Return the letter grade for a score."""
     if score >= 85:
@@ -95,8 +92,7 @@ def get_grade(score):
 for score in [91, 76, 43]:
     print(score, "->", get_grade(score))
 
-# ----------------------------------------------------------------------
-# Exercise 3.2 — pass_rate
+Exercise 3.2 — pass_rate
 def pass_rate(score_list):
     passed = 0
     count = 0
@@ -108,10 +104,9 @@ def pass_rate(score_list):
 
     return (passed / count) * 100
 
-print("Pass rate:", pass_rate(scores))
-
-# ----------------------------------------------------------------------
-# Exercise 4.1 — First contact
+print("Pass rate:", pass_rat 
+      
+ Exercise 4.1 — First contact
 with open("week3_students.csv", "r", encoding="utf-8") as f:
     lines = f.readlines()
 
@@ -119,10 +114,9 @@ print("Number of lines:", len(lines))
 print("Header line:", lines[0].strip())
 print("First student's line:", lines[1].strip())
 
-# There are 41 lines because there is 1 header line plus 40 student records.
+ There are 41 lines because there is 1 header line plus 40 student records.
 
-# ----------------------------------------------------------------------
-# Exercise 4.2 — Extract a column
+ Exercise 4.2 — Extract a column
 names = []
 
 for line in lines[1:]:
@@ -132,8 +126,8 @@ for line in lines[1:]:
 print("Name count:", len(names))
 print("First 5 names:", names[:5])
 
-# ----------------------------------------------------------------------
-# Exercise 5.1 — Survive the mess
+
+ Exercise 5.1 — Survive the mess
 total = 0
 valid_count = 0
 bad_count = 0
@@ -159,8 +153,8 @@ print("Bad:", bad_count)
 print("Bad IDs:", bad_ids)
 print("Average of valid scores:", round(average_valid, 1))
 
-# ----------------------------------------------------------------------
-# Exercise 5.2 — Grades & the top student
+
+ Exercise 5.2 — Grades & the top student
 passed = 0
 failed = 0
 best_score = -1
@@ -188,8 +182,8 @@ print("Best score:", best_score)
 print("Best student:", best_name)
 print("Top student's grade:", get_grade(best_score))
 
-# ----------------------------------------------------------------------
-# Exercise 5.3 — Report by district
+
+Exercise 5.3 — Report by district
 sums = {}
 counts = {}
 
@@ -219,8 +213,7 @@ for d in sums:
 print("Highest-average district:", highest_district)
 print("Highest district average:", round(highest_average, 1))
 
-# ----------------------------------------------------------------------
-# Bonus — Write and read the first output file
+ Bonus — Write and read the first output file
 report_text = (
     "Week 3 Lab Report\n"
     "Student count: 40\n"
