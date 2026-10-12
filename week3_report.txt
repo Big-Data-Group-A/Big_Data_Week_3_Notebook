@@ -1,0 +1,4 @@
+Students: 40
+Valid: 37, Bad: 3
+Average:  75.3
+Top student: Bonaventure Nkurunziza with 95
